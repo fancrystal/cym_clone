@@ -1,3 +1,4 @@
+import { isRongjue } from './commerce/rongjue.js'
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import { rateLimit } from 'express-rate-limit'
@@ -22,7 +23,7 @@ export function createApp({ db, secret, uploadDir = process.env.UPLOAD_DIR || pa
     try { const [data] = await db.query('SELECT * FROM products WHERE active = 1 ORDER BY id DESC'); res.json({ data }) } catch (error) { next(error) }
   })
   app.get('/api/me', auth, async (req, res, next) => {
-    try { if (req.identity.role !== 'user') return res.status(403).json({ message: '无权限' }); const [[data]] = await db.query('SELECT id, phone, username, invite_code, is_root, balance, purchase_count FROM users WHERE id = ? AND status = ?', [req.identity.id, 'active']); if (!data) return res.status(401).json({ message: '账户不可用' }); res.json({ data }) } catch (error) { next(error) }
+    try { if (req.identity.role !== 'user') return res.status(403).json({ message: '无权限' }); const [[data]] = await db.query('SELECT id, phone, username, invite_code, is_root, balance, purchase_count FROM users WHERE id = ? AND status = ?', [req.identity.id, 'active']); if (!data) return res.status(401).json({ message: '账户不可用' }); const [team] = await db.query('WITH RECURSIVE team AS (SELECT id, 1 depth FROM users WHERE parent_id = ? UNION ALL SELECT u.id, team.depth + 1 FROM users u JOIN team ON u.parent_id = team.id WHERE team.depth < 100) SELECT depth, COUNT(*) count FROM team GROUP BY depth', [req.identity.id]); data.is_rongjue = isRongjue(Number(team.find(row => row.depth === 1)?.count || 0), team.reduce((sum, row) => sum + Number(row.count), 0)); res.json({ data }) } catch (error) { next(error) }
   })
   app.use('/api', routes(db, secret, uploadDir))
   app.use((error, _req, res, _next) => { const status = error.status || (error.code === 'ER_DUP_ENTRY' ? 409 : 500); if (status === 500) console.error('API error:', error.code || error.name); res.status(status).json({ message: status === 500 ? '系统暂时不可用' : (error.code === 'ER_DUP_ENTRY' ? '手机号、用户名或请求已存在' : error.message) }) })

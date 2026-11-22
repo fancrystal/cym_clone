@@ -1,7 +1,7 @@
 export function inviteCodeFromUrl(value) {
   try {
     const url=new URL(value)
-    if(url.protocol!=='https:' || url.hostname!=='cym.green' || url.port || url.username || url.password || url.pathname!=='/')return null
+    if(url.protocol!=='https:' || url.hostname!=='bdsq.maishikeji.com.cn' || url.port || url.username || url.password || url.pathname!=='/')return null
     const fragment=url.hash.slice(1)
     if(fragment && !fragment.startsWith('/login?'))return null
     const params=fragment ? new URLSearchParams(fragment.slice(fragment.indexOf('?')+1)) : url.searchParams

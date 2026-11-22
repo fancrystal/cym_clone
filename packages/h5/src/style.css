@@ -21,3 +21,6 @@
 .top .top-title h1{display:flex;align-items:center;gap:.22em;white-space:nowrap;letter-spacing:0}.top .top-title h1 .brand-name{font-size:inherit;color:#fff9ef}.top h1 .brand-zhi{display:block;font-size:.6em;line-height:1;color:#ffe39b;font-weight:700}.top .top-title>span{color:#ffe5bd;font-weight:500}
 .shop-main .product{position:relative}.product-badge{position:absolute;top:0;left:0;z-index:1;padding:5px 8px;border-radius:0 0 6px 0;background:#e92025;color:#fff;font-size:14px;font-weight:700;line-height:1.2;white-space:nowrap;box-shadow:0 1px 4px #0003}
 .load-more{display:block;margin:8px auto 0;padding:10px 20px}
+
+.rongjue { display:inline-flex; align-items:center; gap:5px; padding:3px 12px 3px 5px; border:1px solid #d9ad51; border-radius:20px; background:linear-gradient(135deg,#fff5cf,#d99f37); color:#70460a; font-weight:800; letter-spacing:2px; box-shadow:0 2px 8px #b2823d55; }
+.rongjue svg { width:28px; height:28px; fill:#a86e12; stroke:#a86e12; stroke-width:2; stroke-linecap:round; }
