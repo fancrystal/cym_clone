@@ -39,10 +39,10 @@ class MainActivity : Activity() {
     private var h5Ready = false
     private var mainFailed = false
     private var webViewSupported = true
-    private var lastUrl = "https://cym.green/"
+    private var lastUrl = "https://bdsq.maishikeji.com.cn/"
     private var pendingInvite: String? = null
     private val pickerRequest = 1007
-    private val home = "https://cym.green/"
+    private val home = "https://bdsq.maishikeji.com.cn/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,9 +81,9 @@ class MainActivity : Activity() {
         }
         if (BuildConfig.DEBUG) WebView.setWebContentsDebuggingEnabled(true)
         if (WebViewFeature.isFeatureSupported(WebViewFeature.WEB_MESSAGE_LISTENER)) {
-            WebViewCompat.addWebMessageListener(web, "CymNative", setOf("https://cym.green"), object : WebViewCompat.WebMessageListener {
+            WebViewCompat.addWebMessageListener(web, "CymNative", setOf("https://bdsq.maishikeji.com.cn"), object : WebViewCompat.WebMessageListener {
                 override fun onPostMessage(view: WebView, message: WebMessageCompat, sourceOrigin: Uri, isMainFrame: Boolean, replyProxy: JavaScriptReplyProxy) {
-                    if (!isMainFrame || sourceOrigin.toString() != "https://cym.green") return
+                    if (!isMainFrame || sourceOrigin.toString() != "https://bdsq.maishikeji.com.cn") return
                     try {
                         val data = JSONObject(message.data ?: return)
                         when (data.optString("type")) {

@@ -6,7 +6,7 @@ import java.net.URLDecoder
 object InvitePolicy {
     fun isTrusted(url: String): Boolean = try {
         val u = URI(url)
-        u.scheme == "https" && u.host == "cym.green" && (u.port == -1 || u.port == 443) && u.userInfo == null
+        u.scheme == "https" && u.host == "bdsq.maishikeji.com.cn" && (u.port == -1 || u.port == 443) && u.userInfo == null
     } catch (_: Exception) { false }
 
     fun isInvite(url: String): Boolean { return try {
@@ -25,7 +25,7 @@ object InvitePolicy {
     fun normalizeInvite(url: String): String? = try {
         if (isInvite(url)) url else {
             val uri=URI(url)
-            if(uri.scheme!="http" || uri.host!="cym.green" || uri.port!=-1 || uri.userInfo!=null) null
+            if(uri.scheme!="http" || uri.host!="bdsq.maishikeji.com.cn" || uri.port!=-1 || uri.userInfo!=null) null
             else ("https://"+url.substringAfter("http://")).takeIf { isInvite(it) }
         }
     } catch (_: Exception) { null }
